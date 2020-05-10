@@ -1,35 +1,20 @@
 import React, {useState} from 'react';
 import { TextInput, View, Button, Text, StyleSheet, FlatList } from 'react-native';
+import GoalInput from './components/GoalInput';
 
 export default function App() {
-  const [enteredGoal, setEnteredGoal] = useState('');
-  const [courseGoals, setCourseGoals] = useState([]);
   
-  function goalInputHandler(enteredText){
-    setEnteredGoal(enteredText);
-  }
+  const [courseGoals, setCourseGoals] = useState([]);
 
   /* Flatlists will automatically add keys if the lists provided has a key within
        the object. Otherwise, you will be required to provide a key */
-  const addGoalHandler = () => {
+  const addGoalHandler = (enteredGoal) => {
     setCourseGoals(currentGoals => [...courseGoals, { id: Math.random().toString(), value: enteredGoal }]);
   } 
 
   return (
     <View style={styles.mainView}>
-
-      {/* flexDirection's default value is column
-        For more information: https://reactnative.dev/docs/flexbox */}
-      {/* Using stylesheets are better than using inline styling
-       <View style={{flexDirection: 'row',justifyContent: 'space-between'}}> */}
-
-      <View style={styles.inputContainer}>
-        <TextInput
-         placeholder="Course Goal"
-         onChangeText={goalInputHandler}
-         style={styles.input}/>
-        <Button title="ADD" onPress={addGoalHandler}/>
-      </View>
+      <GoalInput onAddGoal={addGoalHandler} ></GoalInput>
 
       {/* ScrollView is not good for long lists or lists with an unknown
        size as it is inefficient. Use FlatList instead. FlatList optimize
@@ -51,18 +36,6 @@ export default function App() {
 const styles = StyleSheet.create({
   mainView: {
     padding: 50
-  },
-
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-
-  input: {
-    borderColor: 'black',
-    borderWidth: 1,
-    padding: 10,
-    width: '80%'
   },
 
   listItem: {
