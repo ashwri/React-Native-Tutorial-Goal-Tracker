@@ -33,8 +33,11 @@ const GoalInput = props => {
           style={styles.input}
           value={enteredGoal} />
         {/*The .bind(this, enteredGoal) allows for the enteredGoal to be passed back to App.js */}
-        <Button title="CANCEL" color="red" onPress={cancelGoalHandler}/>
+       <View style={styles.buttonContainer}>
+        <Button title="CANCEL" color="red" onPress={cancelGoalHandler} />
         <Button title="ADD" onPress={addGoalHandler} />
+       </View>
+        
       </View>
     </Modal>
 
@@ -54,7 +57,15 @@ const styles = StyleSheet.create({
     padding: 10,
     width: '80%', 
     margin: 10
+  },
+
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: "space-between",
+    width: '35%',
+    margin: 10
   }
+
 });
 
 export default GoalInput;
