@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { TextInput, View, Button, StyleSheet } from 'react-native';
+import { TextInput, View, Button, StyleSheet, Modal } from 'react-native';
 
 
 const GoalInput = props => {
@@ -10,35 +10,40 @@ const GoalInput = props => {
     setEnteredGoal(enteredText);
   }
 
+
   return (
     /* flexDirection's default value is column
       For more information: https://reactnative.dev/docs/flexbox */
     /* Using stylesheets are better than using inline styling
      <View style={{flexDirection: 'row',justifyContent: 'space-between'}}> */
+    <Modal visible={props.visible} animationType="slide">
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Course Goal"
+          onChangeText={goalInputHandler}
+          style={styles.input}
+          value={enteredGoal} />
+        {/*The .bind(this, enteredGoal) allows for the enteredGoal to be passed back to App.js */}
+        <Button title="ADD" onPress={props.onAddGoal.bind(this, enteredGoal)} />
+      </View>
+    </Modal>
 
-    <View style={styles.inputContainer}>
-      <TextInput
-        placeholder="Course Goal"
-        onChangeText={goalInputHandler}
-        style={styles.input} 
-        value={enteredGoal}/>
-      {/*The .bind(this, enteredGoal) allows for the enteredGoal to be passed back to App.js */}
-      <Button title="ADD" onPress={props.onAddGoal.bind(this, enteredGoal)} />
-    </View>
   );
 }
-
+// Views by default take up only enough space for their children element
 const styles = StyleSheet.create({
   inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   input: {
     borderColor: 'black',
     borderWidth: 1,
     padding: 10,
-    width: '80%'
+    width: '80%', 
+    margin: 10
   }
 });
 
