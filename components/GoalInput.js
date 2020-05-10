@@ -20,7 +20,8 @@ const GoalInput = props => {
       <TextInput
         placeholder="Course Goal"
         onChangeText={goalInputHandler}
-        style={styles.input} />
+        style={styles.input} 
+        value={enteredGoal}/>
       {/*The .bind(this, enteredGoal) allows for the enteredGoal to be passed back to App.js */}
       <Button title="ADD" onPress={props.onAddGoal.bind(this, enteredGoal)} />
     </View>

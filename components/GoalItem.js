@@ -1,11 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+
+/** When you want to press or touch the components, you can use the various Touchable 
+ * implementations such as TouchableOpacity /TouchableNativeFeedback / TouchableWithoutFeedback.
+ * You can use these and apply the various press controls such as onPress etc. You can also
+ * add various attributes.
+ */
 
 const GoalItem = props => {
   return(
-    <View style={styles.listItem}>
-      <Text>{props.text}</Text>
-    </View>
+    <TouchableOpacity onPress={props.onDelete.bind(this, props.id)}>
+      <View style={styles.listItem}>
+        <Text>{props.text}</Text>
+      </View>
+    </TouchableOpacity>
+   
   );
 }
 
