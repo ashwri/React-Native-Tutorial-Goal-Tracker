@@ -27,7 +27,6 @@ const GoalInput = props => {
   );
 }
 
-
 const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',

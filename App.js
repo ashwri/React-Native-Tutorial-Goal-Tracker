@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import { TextInput, View, Button, Text, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import GoalInput from './components/GoalInput';
+import GoalItem from './components/GoalItem';
 
 export default function App() {
   
@@ -8,13 +9,16 @@ export default function App() {
 
   /* Flatlists will automatically add keys if the lists provided has a key within
        the object. Otherwise, you will be required to provide a key */
-  const addGoalHandler = (enteredGoal) => {
-    setCourseGoals(currentGoals => [...courseGoals, { id: Math.random().toString(), value: enteredGoal }]);
+  const addGoalHandler = enteredGoal => {
+    setCourseGoals(currentGoals => [
+      ...currentGoals, 
+      { id: Math.random().toString(), value: enteredGoal }
+    ]);
   } 
 
   return (
     <View style={styles.mainView}>
-      <GoalInput onAddGoal={addGoalHandler} ></GoalInput>
+      <GoalInput onAddGoal={addGoalHandler} />
 
       {/* ScrollView is not good for long lists or lists with an unknown
        size as it is inefficient. Use FlatList instead. FlatList optimize
@@ -24,10 +28,7 @@ export default function App() {
       <FlatList
         data={courseGoals}
         keyExtractor={(item) => item.id}
-        renderItem={itemData => 
-          (<View style={styles.listItem}>
-            <Text>{itemData.item.value}</Text>
-          </View>)}
+        renderItem={itemData => (<GoalItem text={itemData.item.value}/>)}
       />
     </View>
   );
@@ -37,13 +38,5 @@ const styles = StyleSheet.create({
   mainView: {
     padding: 50
   },
-
-  listItem: {
-    padding: 10,
-    marginTop: 10,
-    backgroundColor: '#fee9e1',
-    borderColor: 'black',
-    borderWidth: 1
-  }
 });
 
