@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { TextInput, View, Button, Text, StyleSheet, ScrollView } from 'react-native';
+import { TextInput, View, Button, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 
 export default function App() {
   const [enteredGoal, setEnteredGoal] = useState('');
@@ -11,17 +11,18 @@ export default function App() {
 
   function addGoalHandler(){
     setCourseGoals(currentGoals => [...courseGoals, enteredGoal]);
-    console.log(courseGoals);
   }
 
 
 
   return (
     <View style={styles.mainView}>
+
       {/* flexDirection's default value is column
         For more information: https://reactnative.dev/docs/flexbox */}
       {/* Using stylesheets are better than using inline styling
        <View style={{flexDirection: 'row',justifyContent: 'space-between'}}> */}
+
       <View style={styles.inputContainer}>
         <TextInput
          placeholder="Course Goal"
@@ -29,11 +30,17 @@ export default function App() {
          style={styles.input}/>
         <Button title="ADD" onPress={addGoalHandler}/>
       </View>
-      
-      <ScrollView>
-        {courseGoals.map((goal) =>
-          <View style={styles.listItem}><Text>{goal}</Text></View>)}
-      </ScrollView>
+
+      {/* ScrollView is not good for long lists or lists with an unknown
+       size as it is inefficient. Use FlatList instead */}
+
+      <FlatList
+        data={courseGoals}
+        renderItem={itemData => 
+          (<View style={styles.listItem}>
+            <Text>{itemData.item}</Text>
+          </View>)}
+      />
     </View>
   );
 }
