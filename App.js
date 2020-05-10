@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { TextInput, View, Button, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
+import { TextInput, View, Button, Text, StyleSheet, FlatList } from 'react-native';
 
 export default function App() {
   const [enteredGoal, setEnteredGoal] = useState('');
@@ -9,11 +9,11 @@ export default function App() {
     setEnteredGoal(enteredText);
   }
 
-  function addGoalHandler(){
-    setCourseGoals(currentGoals => [...courseGoals, enteredGoal]);
-  }
-
-
+  /* Flatlists will automatically add keys if the lists provided has a key within
+       the object. Otherwise, you will be required to provide a key */
+  const addGoalHandler = () => {
+    setCourseGoals(currentGoals => [...courseGoals, { id: Math.random().toString(), value: enteredGoal }]);
+  } 
 
   return (
     <View style={styles.mainView}>
@@ -32,13 +32,16 @@ export default function App() {
       </View>
 
       {/* ScrollView is not good for long lists or lists with an unknown
-       size as it is inefficient. Use FlatList instead */}
+       size as it is inefficient. Use FlatList instead. FlatList optimize
+       scrolling by only rendering the components that will be visible
+      */}
 
       <FlatList
         data={courseGoals}
+        keyExtractor={(item) => item.id}
         renderItem={itemData => 
           (<View style={styles.listItem}>
-            <Text>{itemData.item}</Text>
+            <Text>{itemData.item.value}</Text>
           </View>)}
       />
     </View>
