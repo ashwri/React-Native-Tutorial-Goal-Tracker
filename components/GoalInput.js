@@ -10,6 +10,15 @@ const GoalInput = props => {
     setEnteredGoal(enteredText);
   }
 
+ const addGoalHandler = () => {
+  props.onAddGoal(enteredGoal)
+  setEnteredGoal('');
+ }
+
+ const cancelGoalHandler = () => {
+  props.onCancelGoal();
+  setEnteredGoal('');
+ }
 
   return (
     /* flexDirection's default value is column
@@ -24,7 +33,8 @@ const GoalInput = props => {
           style={styles.input}
           value={enteredGoal} />
         {/*The .bind(this, enteredGoal) allows for the enteredGoal to be passed back to App.js */}
-        <Button title="ADD" onPress={props.onAddGoal.bind(this, enteredGoal)} />
+        <Button title="CANCEL" color="red" onPress={cancelGoalHandler}/>
+        <Button title="ADD" onPress={addGoalHandler} />
       </View>
     </Modal>
 

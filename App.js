@@ -18,6 +18,10 @@ export default function App() {
     setIsAddMode(false);
   } 
 
+  const cancelGoalHandler = enteredGoal => {
+    setIsAddMode(false);
+  }
+
   const deleteGoalHandler = (id) => {
     setCourseGoals(currentGoals => {
       return currentGoals.filter((goal => goal.id !== id));
@@ -27,7 +31,7 @@ export default function App() {
   return (
     <View style={styles.mainView}>
       <Button title="ADD NEW BUTTON" onPress={() => setIsAddMode(true)}/>
-      <GoalInput visible={isAddMode} onAddGoal={addGoalHandler} />
+      <GoalInput visible={isAddMode} onAddGoal={addGoalHandler} onCancelGoal={cancelGoalHandler} />
 
       {/* ScrollView is not good for long lists or lists with an unknown
        size as it is inefficient. Use FlatList instead. FlatList optimize
